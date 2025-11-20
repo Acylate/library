@@ -21,8 +21,36 @@ class Library(Base):
     price: Mapped[int] = mapped_column()
     sold_amount: Mapped[int] = mapped_column()
     
-    
     __table_args__ = (
         CheckConstraint(price >= 0, name='check_price_positive'),
         CheckConstraint(sold_amount >= 0, name='check_sold_amount_positive')
     )
+    
+class Authors(Base):
+    __tablename__ = "authors"
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    fullname: Mapped[str] = mapped_column(String(60))
+    birth_year: Mapped[datetime] = mapped_column(DateTime)
+    birth_place: Mapped[str] = mapped_column(String(30))
+    
+class Transaction(Base):
+    __tablename__ = "transaction"
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    type: Mapped[str] = mapped_column()
+    
+    
+    buy_price: Mapped[int] = mapped_column()
+    book_amount: Mapped[int] = mapped_column()
+    __table_args__ = (
+        CheckConstraint(buy_price >= 0, name='check_buy_price_positive'),
+        CheckConstraint(book_amount >= 0, name='check_book_amount_positive')
+    )
+    
+class Bank(Base):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    
+    balance: Mapped[int] = mapped_column()
+    balance_change: Mapped[int] = mapped_column()
+    current_balance: Mapped[int] = mapped_column()
